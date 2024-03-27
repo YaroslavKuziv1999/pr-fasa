@@ -4,6 +4,29 @@
 
 body {
   background-color: $backgroundPrimary;
-  font-family: 'Rozha One', serif;
+  font-family: "Rozha One", serif;
   color: $sage;
+  overflow: hidden;
+}
+
+
+.custom-shape-divider-top-1711316342 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1711316342 svg {
+  position: relative;
+  display: block;
+  width: calc(197% + 1.3px);
+  height: 150px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1711316342 .shape-fill {
+  fill: #EEE7DA;
 }
