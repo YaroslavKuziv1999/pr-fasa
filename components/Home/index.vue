@@ -1,3 +1,3 @@
 <template>
-  <div><Pricing /></div>
+  <div><HomePricing /></div>
 </template>
