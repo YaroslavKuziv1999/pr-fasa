@@ -22,14 +22,7 @@
               Masaż dla dorosłych - wykonujemy zabiegi lecznicze,
               profilaktyczne, drenaż limfatyczny, antycellulitowy, sportowy.
             </p>
-            <div>
-              <a
-                href="/"
-                class="w-full bg-main block text-base font-semibold text-main bg-transparent border border-color rounded-md text-center p-4 hover:text-white hover:bg-main hover:border-color transition"
-              >
-                Zamów teraz
-              </a>
-            </div>
+            <OrderButton />
             <div>
               <span class="absolute right-0 top-7 z-[-1]">
                 <svg
@@ -306,14 +299,7 @@
               profilaktyczny i terapeutyczny, ale można do tej listy dodać także
               masaż sportowy.
             </p>
-            <div>
-              <a
-                href="javascript:void(0)"
-                class="w-full block text-base font-semibold text-main bg-main border border-color rounded-md text-center p-4 transition"
-              >
-                Zamów teraz
-              </a>
-            </div>
+            <OrderButton />
             <div>
               <span class="absolute right-0 top-7 z-[-1]">
                 <svg
@@ -590,14 +576,7 @@
               szczególnym uwzględnieniem osób wykonujących pracę siedzącą a
               także fizyczną.
             </p>
-            <div>
-              <a
-                href="javascript:void(0)"
-                class="w-full bg-main block text-base font-semibold text-main bg-transparent border border-color rounded-md text-center p-4 hover:text-white hover:bg-main hover:border-color transition"
-              >
-                Zamów teraz
-              </a>
-            </div>
+            <OrderButton />
             <div>
               <span class="absolute right-0 top-7 z-[-1]">
                 <svg

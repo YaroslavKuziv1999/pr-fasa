@@ -4,7 +4,6 @@
       <NuxtLink to="/" class="w-[100px]">
         <img src="../../assets/img/logo.png" alt="logo" />
       </NuxtLink>
-      <HeaderLinks />
       <div>
         <button class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full">
           Zalogować się
