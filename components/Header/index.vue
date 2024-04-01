@@ -4,11 +4,7 @@
       <NuxtLink to="/" class="w-[100px]">
         <img src="../../assets/img/logo.png" alt="logo" />
       </NuxtLink>
-      <div>
-        <button class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full">
-          Zalogować się
-        </button>
-      </div>
+      <SignInUp />
     </header>
     <section>
       <div class="custom-shape-divider-top-1711316342 z-[-1]">

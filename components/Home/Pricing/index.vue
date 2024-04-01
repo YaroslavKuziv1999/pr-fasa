@@ -1,6 +1,6 @@
 <template>
   <section
-    class="pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] relative z-20 overflow-hidden"
+    class="pt-10 lg:pt-[120px] pb-12 lg:pb-[90px] relative z-20 overflow-hidden"
   >
     <div class="container">
       <div class="flex flex-wrap justify-center items-stretch -mx-4">
