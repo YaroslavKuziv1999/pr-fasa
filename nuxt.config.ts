@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/google-fonts'],
   css: ['~/assets/scss/main.scss'],
+  app: {
+    head: {
+      link: [{ rel: 'stylesheet', href: 'https://cdn.tailgrids.com/tailgrids-fallback.css' }]
+    }
+  },
   googleFonts: {
     families: {
       'Rozha One': true,

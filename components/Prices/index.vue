@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Usługi atrakcyjny ceny</div>
+    <TextHeading text="Usługi atrakcyjny ceny" />
     <PricesCarousel />
   </div>
 </template>

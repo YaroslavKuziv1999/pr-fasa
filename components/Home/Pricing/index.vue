@@ -1,11 +1,4 @@
 <template>
-  <!-- component -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.tailgrids.com/tailgrids-fallback.css"
-  />
-
-  <!-- ====== Pricing Section Start -->
   <section
     class="pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] relative z-20 overflow-hidden"
   >
@@ -842,7 +835,6 @@
       </div>
     </div>
   </section>
-  <!-- ====== Pricing Section End -->
 </template>
 
 <style lang="scss" scoped>
