@@ -1,9 +1,12 @@
 <template>
   <div>
     <header class="flex justify-between p-5 pt-2 mb-5">
-      <NuxtLink to="/" class="w-[100px]">
-        <img src="../../assets/img/logo.png" alt="logo" />
-      </NuxtLink>
+      <div class="flex justify-center items-center gap-3">
+        <NuxtLink to="/" class="w-[100px]">
+          <img src="@/assets/img/logo.png" alt="logo" />
+        </NuxtLink>
+        <HeaderSocials />
+      </div>
       <SignInUp />
     </header>
     <section>

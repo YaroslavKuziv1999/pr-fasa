@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/google-fonts','@nuxt/ui'],
+  modules: ['@nuxtjs/google-fonts','@nuxt/ui','nuxt-icon'],
   css: ['~/assets/scss/main.scss'],
   app: {
     head: {
