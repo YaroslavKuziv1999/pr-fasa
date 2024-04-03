@@ -1,14 +1,5 @@
 <template>
   <div>
-    <header class="flex justify-between p-5 pt-2 mb-5">
-      <div class="flex justify-center items-center gap-3">
-        <NuxtLink to="/" class="w-[100px]">
-          <img src="@/assets/img/logo.png" alt="logo" />
-        </NuxtLink>
-        <HeaderSocials />
-      </div>
-      <SignInUp />
-    </header>
     <section>
       <div class="custom-shape-divider-top-1711316342 z-[-1]">
         <svg
@@ -24,5 +15,22 @@
         </svg>
       </div>
     </section>
+    <header class="flex justify-between items-center p-5 pt-2 mb-5">
+      <div class="flex justify-center items-center gap-3">
+        <NuxtLink to="/" class="w-[100px]">
+          <img src="@/assets/img/logo.png" alt="logo" />
+        </NuxtLink>
+
+        <HeaderSocials
+          name="ion:social-facebook"
+          href="https://m.facebook.com/groups/520791202989492/?ref=share"
+        />
+        <HeaderSocials
+          name="mdi:instagram"
+          href="https://www.instagram.com/poznan_masaz?igsh=MWc0cWpwazQ2NTN6NA=="
+        />
+      </div>
+      <SignInUp class="pb-1" />
+    </header>
   </div>
 </template>
