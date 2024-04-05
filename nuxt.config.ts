@@ -1,16 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/google-fonts','@nuxt/ui','nuxt-icon'],
-  css: ['~/assets/scss/main.scss'],
+  modules: ["@nuxtjs/google-fonts", "@nuxt/ui", "nuxt-icon"],
+  css: ["~/assets/scss/main.scss"],
   app: {
     head: {
-      link: [{ rel: 'stylesheet', href: 'https://cdn.tailgrids.com/tailgrids-fallback.css' }]
-    }
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://cdn.tailgrids.com/tailgrids-fallback.css",
+        },
+      ],
+    },
   },
   googleFonts: {
     families: {
-      'Rozha One': true,
+      "Rozha One": true,
     },
   },
   vite: {

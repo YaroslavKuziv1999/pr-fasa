@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="pt-10 lg:pt-[120px] pb-12 lg:pb-[90px] relative z-20 overflow-hidden"
-  >
+  <section class="pt-10 lg:pt-[120px] relative z-20 overflow-hidden">
     <div class="container">
       <div class="flex flex-wrap justify-center items-stretch -mx-4">
         <div class="w-full md:w-1/2 lg:w-1/3 px-4">

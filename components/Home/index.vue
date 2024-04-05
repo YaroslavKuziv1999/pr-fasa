@@ -6,5 +6,6 @@
       <Business />
       <HomePricing />
     </div>
+    <Map />
   </div>
 </template>

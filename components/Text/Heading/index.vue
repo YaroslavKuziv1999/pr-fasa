@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-6xl my-5">{{ text }}</div>
+  <div class="text-center text-6xl mt-5 mb-10">{{ text }}</div>
 </template>
 
 <script setup>
