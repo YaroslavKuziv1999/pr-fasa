@@ -1,7 +1,7 @@
 <template>
   <div>
     <TextHeading text="Poznań i okolice" />
-    <div class="circle-shape ml-3">
+    <div class="circle-shape">
       <img
         class="rounded-full w-[28rem] h-[28rem] object-cover"
         src="@/assets/img/map.png"

@@ -2,7 +2,7 @@
   <Carousel ref="car" :itemsToShow="3" :wrapAround="true" :transition="500">
     <Slide v-for="(slide, i) in tablePrices" :key="slide">
       <div class="carousel__item flex flex-col gap-3 p-24">
-        <div class="text-2xl text-[green]">{{ slide.name }}</div>
+        <div class="text-4xl text-[green]">{{ slide.name }}</div>
         <div class="text-5xl font-bold pb-3 w-full">
           {{ slide.price }} zł /
           <span class="text-xl opacity-50 text-body-color"

@@ -1,8 +1,8 @@
 <template>
-  <div class="text-center container px-10">
+  <div class="text-center">
     <TextHeading text="Oferta dla firm" />
     <h3 class="text-3xl text-body-color text-bold">Masaż Biurowy</h3>
-    <div class="text-left text-body-color">
+    <div class="text-left text-xl text-body-color">
       <p class="my-3">
         Forma masażu biura liczy się szybkie przywrócenie pracownikowi sił
         witalnych oraz uwolnienie go od napięcia mięśniowego i bólu, aby mógł

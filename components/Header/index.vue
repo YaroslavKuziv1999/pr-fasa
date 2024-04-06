@@ -15,7 +15,7 @@
         </svg>
       </div>
     </section>
-    <header class="flex justify-between items-center p-5 pt-2 mb-5">
+    <header class="flex justify-between items-center py-5 mb-5">
       <div class="flex justify-center items-center gap-3">
         <NuxtLink to="/" class="w-[100px]">
           <img src="@/assets/img/logo.png" alt="logo" />

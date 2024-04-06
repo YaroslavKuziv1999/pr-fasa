@@ -1,24 +1,32 @@
 <template>
   <div class="flex gap-3 mt-10">
-    <div class="w-[100vw] clipped">
-      <img src="../../../assets/img/intro.jpg" alt="pr-fasa" />
+    <div class="w-[100vw] h-full">
+      <img
+        class="rounded-3xl"
+        src="../../../assets/img/intro.jpg"
+        alt="pr-fasa"
+      />
     </div>
-    <div class="flex flex-col justify-center text-2xl pr-10 text-body-color">
+    <div
+      class="flex text-justify flex-col justify-center text-2xl px-10 text-body-color"
+    >
       <p class="text-center text-3xl font-bold mb-2">
-        ...Moja historia <br />
+        Moja historia<br />
         Witam serdecznie...
       </p>
       <div class="opacity-60">
         <p>
           Mam na imię
           <span class="text-[green] opacity-100">Vira.</span>
-          Masażysta z zamiłowania do terapii dotykiem.Masaż jest moim sposobom
-          pomóc, które cały czas rozwijam i doskonalę, staram się2 poszerzać
-          spektrum pracy z ciałem o kolejne techniki.
+          Masażysta z zamiłowania do terapii dotykiem.
+        </p>
+        <p>
+          Masaż jest moim sposobom pomóc, które cały czas rozwijam i doskonalę,
+          staram się2 poszerzać spektrum pracy z ciałem o kolejne techniki.
         </p>
         <p>
           Praktykuje liczenia skórę (cellulit), mięśnie i kości kolo pięć łat.
-          Mam praktyki i doświadczenia.Moja praca daje mi dużo satysfakcji,
+          Mam praktyki i doświadczenia. Moja praca daje mi dużo satysfakcji,
           ponieważ mogę realnie pomóc ciału oraz psychice.
         </p>
         <p>
@@ -35,7 +43,7 @@
 </template>
 
 <style scoped>
-.clipped {
+/* .clipped {
   clip-path: inset(0px 50px 10px 50px round 5%);
-}
+} */
 </style>
