@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/google-fonts", "@nuxt/ui", "nuxt-icon"],
   css: ["~/assets/scss/main.scss"],
+  colorMode: {
+    preference: 'light'
+  },
   app: {
     head: {
       link: [
