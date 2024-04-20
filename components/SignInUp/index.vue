@@ -1,8 +1,27 @@
 <template>
   <div>
-    <div @click="isOpen = true">
-      <button class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full">
-        Zalogować się
+    <div v-if="!loggedIn" @click="isOpen = true">
+      <button
+        class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+      >
+        <UIcon name="i-heroicons-user-solid" />
+        Zaloguj się
+      </button>
+    </div>
+    <div v-else class="flex justify-center items-center gap-2">
+      <div @click="handleSignOut">
+        <button
+          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+        >
+          <UIcon name="i-heroicons-arrow-left-end-on-rectangle-16-solid" />
+          Wyloguj
+        </button>
+      </div>
+      <button
+        @click="() => navigateTo('/account')"
+        class="bg-[#afc8ad] text-[#eee7da] p-3 rounded-full flex justify-center items-center"
+      >
+        <UIcon name="i-heroicons-user-solid" />
       </button>
     </div>
 
@@ -20,11 +39,14 @@
         <template #item="{ item }">
           <UForm
             :state="item.key === 'login' ? login : register"
-            :validate="validate"
-            @submit="onSubmit"
+            :schema="item.key === 'login' ? loginSchema : registerSchema"
           >
             <UCard
               class="divide-none rounded-lg text-[black]"
+              @submit.prevent="
+                () =>
+                  onSubmit(item.key === 'login' ? login : register, item.key)
+              "
               :ui="{
                 strategy: 'override',
                 rounded: '',
@@ -120,6 +142,7 @@
 
               <template #footer>
                 <UButton
+                  :loading="loading"
                   type="submit"
                   block
                   class="p-3 text-main bg-main border border-color rounded-md text-center transition"
@@ -135,8 +158,16 @@
 </template>
 
 <script setup>
+import { z } from "zod";
+
 const isOpen = ref(false);
+const loading = ref(false);
 const show = ref({ login: false, register: false });
+
+const { signIn, status, signOut } = useAuth();
+const toast = useToast();
+
+const loggedIn = computed(() => status.value === "authenticated");
 
 const login = reactive({ email: "", password: "" });
 const register = reactive({ email: "", password: "", phone: "" });
@@ -148,32 +179,109 @@ const items = [
   },
   {
     key: "register",
-    label: "Zarejestruj się",
+    label: "Załóż konto",
   },
 ];
 
-const validate = (state) => {
-  const errors = [];
-  if (!state.email)
-    errors.push({ path: "email", message: "Email jest wymagany!" });
-  if (
-    !state.email.match(/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/gm)
-  )
-    errors.push({
-      path: "email",
-      message: "Musisz podać prawidłowy adres email",
-    });
-  if (!state.phone)
-    errors.push({ path: "phone", message: "Wymagany jest telefon!" });
-  if (!state.password) {
-    errors.push({ path: "password", message: "Wymagane jest hasło!" });
-  }
-  return errors;
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+);
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Must be at least 8 characters"),
+});
+
+const registerSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Must be at least 8 characters"),
+  phone: z.string().regex(phoneRegex, "Invalid Number!"),
+});
+
+const handleSignOut = async () => {
+  await signOut();
 };
 
-async function onSubmit(form) {
-  console.log("Submitted form:", form);
-}
+const onSubmit = async (form, type) => {
+  const result = {
+    login: loginSchema.safeParse(form),
+    register: registerSchema.safeParse(form),
+  };
+
+  if (type === "register" && result.register.success) {
+    try {
+      loading.value = true;
+
+      const { data, error } = await useFetch("/api/auth/register", {
+        method: "POST",
+        body: {
+          email: form.email,
+          password: form.password,
+          phone: form.phone,
+        },
+      });
+
+      if (error.value) {
+        toast.add({
+          id: 1,
+          title: `Something went wrong! \n Maybe you are already registered`,
+          description: "Try again",
+          icon: "i-heroicons-exclamation-circle-16-solid",
+          color: "red",
+        });
+      }
+
+      if (data.value) {
+        const { ok, error } = await signIn("credentials", {
+          email: form.email,
+          password: form.password,
+          redirect: false,
+        });
+        if (ok && !error) {
+          isOpen.value = false;
+          toast.remove(1);
+          await navigateTo("/account");
+        } else {
+          await navigateTo("/");
+        }
+      }
+    } catch (error) {
+      console.log("Registretion Error", error);
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  if (type === "login" && result.login.success) {
+    try {
+      loading.value = true;
+
+      const { ok, error } = await signIn("credentials", {
+        email: form.email,
+        password: form.password,
+        redirect: false,
+      });
+
+      if (ok && !error) {
+        isOpen.value = false;
+        toast.remove(0);
+        await navigateTo("/account");
+      } else {
+        toast.add({
+          id: 0,
+          title: "Your email or password are wrong!",
+          description: "Try again",
+          icon: "i-heroicons-exclamation-circle-16-solid",
+          color: "red",
+        });
+      }
+    } catch (error) {
+      console.log("Login Error", error);
+    } finally {
+      loading.value = false;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

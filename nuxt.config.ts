@@ -1,10 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/google-fonts", "@nuxt/ui", "nuxt-icon"],
+  modules: [
+    "@nuxtjs/google-fonts",
+    "@nuxt/ui",
+    "nuxt-icon",
+    "@sidebase/nuxt-auth",
+    "@nuxtjs/tailwindcss"
+  ],
   css: ["~/assets/scss/main.scss"],
   colorMode: {
-    preference: 'light'
+    preference: "light",
   },
   app: {
     head: {
