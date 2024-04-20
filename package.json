@@ -19,7 +19,8 @@
     "nuxt-icon": "^0.6.10",
     "postcss": "^8.4.33",
     "vue": "^3.3.12",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-carousel-nuxt": "^1.1.1"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -28,7 +29,7 @@
     "bcrypt": "^5.1.1",
     "prisma": "^5.12.1",
     "sass": "^1.70.0",
-    "vue3-carousel": "^0.3.1",
+    "vue3-carousel": "^0.3.3",
     "zod": "^3.22.5"
   }
 }

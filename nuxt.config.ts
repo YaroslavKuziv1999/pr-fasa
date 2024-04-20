@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "nuxt-icon",
     "@sidebase/nuxt-auth",
-    "@nuxtjs/tailwindcss"
+    "@nuxtjs/tailwindcss",
+    "vue3-carousel-nuxt"
   ],
   css: ["~/assets/scss/main.scss"],
   colorMode: {

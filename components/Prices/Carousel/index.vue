@@ -276,19 +276,8 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { Carousel, Pagination, Slide } from "vue3-carousel";
-
-import "vue3-carousel/dist/carousel.css";
-
 export default defineComponent({
   name: "Autoplay",
-  components: {
-    Carousel,
-    Slide,
-    Pagination,
-  },
-
   data: () => ({
     tablePrices: [
       { name: "Masaż karku i ramion, rąk", price: 40, time: 30 },
