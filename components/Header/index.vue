@@ -30,7 +30,37 @@
           href="https://www.instagram.com/poznan_masaz?igsh=MWc0cWpwazQ2NTN6NA=="
         />
       </div>
-      <SignInUp class="pb-1" />
+      <div class="flex justify-center items-center gap-3">
+        <SignInUp />
+        <NuxtLink
+          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+          to="/account"
+          v-if="loggedIn"
+        >
+          <UIcon name="i-heroicons-fire-20-solid" />
+          Usługi
+        </NuxtLink>
+        <NuxtLink
+          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+          to="/account"
+          v-if="loggedIn"
+        >
+          <UIcon name="i-heroicons-clipboard-20-solid" />
+          Informacje o zapisie
+        </NuxtLink>
+        <NuxtLink
+          class="bg-[#afc8ad] text-[#eee7da] p-3 rounded-full flex justify-center items-center"
+          to="/account"
+          v-if="loggedIn"
+        >
+          <UIcon name="i-heroicons-user-solid" />
+        </NuxtLink>
+      </div>
     </header>
   </div>
 </template>
+
+<script setup>
+const { status } = useAuth();
+const loggedIn = computed(() => status.value === "authenticated");
+</script>

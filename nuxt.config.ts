@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@sidebase/nuxt-auth",
     "@nuxtjs/tailwindcss",
-    "vue3-carousel-nuxt"
+    "vue3-carousel-nuxt",
   ],
   css: ["~/assets/scss/main.scss"],
   colorMode: {
@@ -43,4 +43,16 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    //Mail
+    MAILHOST: "smtp.gmail.com",
+    MAILPORT: 587,
+    MAILUSER: 'prfasaz@gmail.com',
+    MAILPASSWORD: 'pyzj vzkt ovke fuqt',
+
+    //Cloudinary
+    cloudinaryCloudName: 'dk4hwewqj',
+    cloudinaryApiKey: '982361323571352',
+    cloudinaryApiSecret: 'XawRB67jvukjjI-1iml-ziOMoMg'
+}
 });

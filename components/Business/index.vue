@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <TextHeading text="Oferta dla firm" />
+    <UITextHeading text="Oferta dla firm" />
     <h3 class="text-3xl text-body-color text-bold">Masaż Biurowy</h3>
     <div class="text-left text-xl text-body-color">
       <p class="my-3">

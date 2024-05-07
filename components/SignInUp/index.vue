@@ -8,20 +8,12 @@
         Zaloguj się
       </button>
     </div>
-    <div v-else class="flex justify-center items-center gap-2">
-      <div @click="handleSignOut">
-        <button
-          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-        >
-          <UIcon name="i-heroicons-arrow-left-end-on-rectangle-16-solid" />
-          Wyloguj
-        </button>
-      </div>
+    <div v-else @click="handleSignOut">
       <button
-        @click="() => navigateTo('/account')"
-        class="bg-[#afc8ad] text-[#eee7da] p-3 rounded-full flex justify-center items-center"
+        class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
       >
-        <UIcon name="i-heroicons-user-solid" />
+        <UIcon name="i-heroicons-arrow-left-end-on-rectangle-16-solid" />
+        Wyloguj
       </button>
     </div>
 
@@ -39,7 +31,7 @@
         <template #item="{ item }">
           <UForm
             :state="item.key === 'login' ? login : register"
-            :schema="item.key === 'login' ? loginSchema : registerSchema"
+            :schema="item.key === 'login' ? LoginSchema : RegisterSchema"
           >
             <UCard
               class="divide-none rounded-lg text-[black]"
@@ -158,7 +150,7 @@
 </template>
 
 <script setup>
-import { z } from "zod";
+import { LoginSchema, RegisterSchema } from "../../schemas/registerLoginSchema";
 
 const isOpen = ref(false);
 const loading = ref(false);
@@ -183,29 +175,14 @@ const items = [
   },
 ];
 
-const phoneRegex = new RegExp(
-  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
-);
-
-const loginSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Must be at least 8 characters"),
-});
-
-const registerSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Must be at least 8 characters"),
-  phone: z.string().regex(phoneRegex, "Invalid Number!"),
-});
-
 const handleSignOut = async () => {
   await signOut();
 };
 
 const onSubmit = async (form, type) => {
   const result = {
-    login: loginSchema.safeParse(form),
-    register: registerSchema.safeParse(form),
+    login: LoginSchema.safeParse(form),
+    register: RegisterSchema.safeParse(form),
   };
 
   if (type === "register" && result.register.success) {

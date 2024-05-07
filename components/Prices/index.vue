@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TextHeading text="Usługi atrakcyjny ceny" />
+    <UITextHeading text="Usługi atrakcyjny ceny" />
     <PricesCarousel />
   </div>
 </template>

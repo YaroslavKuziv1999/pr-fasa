@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TextHeading text="Poznań i okolice" />
+    <UITextHeading text="Poznań i okolice" />
     <div class="circle-shape">
       <img
         class="rounded-full w-[28rem] h-[28rem] object-cover"

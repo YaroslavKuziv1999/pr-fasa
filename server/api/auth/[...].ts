@@ -18,6 +18,7 @@ export default NuxtAuthHandler({
     CredentialsProvider.default({
       name: "credentials",
       credentials: {
+        id: { label: "id", type: "id" },
         email: { label: "email", type: "email" },
         password: { type: "password", label: "password" },
       },
@@ -46,6 +47,7 @@ export default NuxtAuthHandler({
           credentials.password,
           user.hashedPassword
         );
+        console.log('correctPassword :', user.hashedPassword, credentials.password);
         if (!correctPassword) {
           throw createError({
             statusCode: 401,
@@ -56,6 +58,20 @@ export default NuxtAuthHandler({
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({token, user}) => {
+      const isSignIn = user ? true : false;
+      if (isSignIn) {
+        token.jwt = user ? (user as any).access_token || '' : '';
+        token.id = user ? user.id || '' : '';
+      }
+      return Promise.resolve(token);
+    },
+    session: async ({session, token}) => {
+      (session as any).uid = token.id;
+      return Promise.resolve(session);
+    },
+  },
   pages: {
     signIn: "/",
   },
