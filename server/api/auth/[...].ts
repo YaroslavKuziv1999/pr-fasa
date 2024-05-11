@@ -47,7 +47,7 @@ export default NuxtAuthHandler({
           credentials.password,
           user.hashedPassword
         );
-        console.log('correctPassword :', user.hashedPassword, credentials.password);
+        
         if (!correctPassword) {
           throw createError({
             statusCode: 401,

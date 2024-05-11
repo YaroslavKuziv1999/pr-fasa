@@ -20,5 +20,5 @@ definePageMeta({ middleware: "auth" });
 const { data } = useAuth();
 
 const user = await $fetch(`/api/users/${data.value.uid}`);
-const images = await $fetch(`/api/media/${user.id}`);
+const images = await $fetch(`/api/media/${user.id}`, { method: "GET" });
 </script>
