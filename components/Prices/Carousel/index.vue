@@ -6,7 +6,7 @@
         <div class="text-5xl font-bold pb-3 w-full">
           {{ slide.price }} zł /
           <span class="text-xl opacity-50 text-body-color"
-            >{{ slide.time }} min</span
+            >{{ slide.time }} {{ slide.unitsOfTime }}</span
           >
         </div>
         <OrderButton id="order" class="w-full mt-3" />
@@ -276,23 +276,12 @@
 </template>
 
 <script>
+const services = await $fetch(`/api/services/all`, { method: "GET" });
+
 export default defineComponent({
   name: "Autoplay",
   data: () => ({
-    tablePrices: [
-      { name: "Masaż karku i ramion, rąk", price: 40, time: 30 },
-      { name: "Masaż pleców, rąk", price: 50, time: 40 },
-      { name: "Masaż klatki piersiowej, limfatyczny", price: 60, time: 40 },
-      { name: "Klasyczny masaż leczniczy", price: 80, time: 50 },
-      { name: "Masaż próżniowy / drenaż limfatyczny", price: 80, time: 50 },
-      { name: "Bańką Chińską", price: 60, time: 40 },
-      { name: "Masaż nóg", price: 40, time: 30 },
-      { name: "Masaż calego ciała", price: 100, time: 60 },
-      { name: "Sportowy masaż", price: 100, time: 60 },
-      { name: "Masaż Kobido", price: 100, time: 60 },
-      { name: "Masaż twarzy Limfatyczny", price: 80, time: 40 },
-      { name: "Masaż logopedyczny", price: 50, time: 30 },
-    ],
+    tablePrices: services,
   }),
 });
 </script>
