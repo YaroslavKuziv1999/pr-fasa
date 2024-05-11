@@ -34,7 +34,8 @@
         <SignInUp />
         <NuxtLink
           class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-          to="/account"
+          :class="{ active: active.services }"
+          to="/services"
           v-if="loggedIn"
         >
           <UIcon name="i-heroicons-fire-20-solid" />
@@ -42,14 +43,16 @@
         </NuxtLink>
         <NuxtLink
           class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-          to="/account"
+          to="/records"
+          :class="{ active: active.records }"
           v-if="loggedIn"
         >
           <UIcon name="i-heroicons-clipboard-20-solid" />
           Informacje o zapisie
         </NuxtLink>
         <NuxtLink
-          class="bg-[#afc8ad] text-[#eee7da] p-3 rounded-full flex justify-center items-center"
+          class="bg-[#eee7da] text-[#afc8ad] p-3 rounded-full flex justify-center items-center"
+          :class="{ active: active.account }"
           to="/account"
           v-if="loggedIn"
         >
@@ -60,7 +63,55 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.active {
+  color: $belge;
+  background-color: $sage;
+}
+</style>
+
 <script setup>
+const PAGES = {
+  account: "account",
+  services: "services",
+  records: "records",
+  index: "index",
+};
+
 const { status } = useAuth();
+const route = useRoute();
+
+const active = ref({
+  account: true,
+  services: false,
+  records: false,
+});
+
 const loggedIn = computed(() => status.value === "authenticated");
+
+watch(
+  () => route.name,
+  (routeName) => {
+    if (loggedIn.value) {
+      switch (routeName) {
+        case PAGES.account:
+          active.value = { account: true, services: false, records: false };
+          break;
+        case PAGES.services:
+          active.value = { account: false, services: true, records: false };
+          break;
+        case PAGES.records:
+          active.value = { account: false, services: false, records: true };
+          break;
+        case PAGES.index:
+          active.value = { account: false, services: false, records: false };
+          break;
+        default:
+          active.value = { account: true, services: false, records: false };
+          break;
+      }
+    }
+  },
+  { deep: true, immediate: true }
+);
 </script>
