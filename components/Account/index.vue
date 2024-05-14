@@ -11,7 +11,7 @@
           <img
             v-if="state.image.src"
             :src="state.image.src"
-            alt="Your Face"
+            alt="Avatar"
             class="w-full h-full object-cover"
           />
           <UIcon

@@ -51,12 +51,27 @@
           Informacje o zapisie
         </NuxtLink>
         <NuxtLink
-          class="bg-[#eee7da] text-[#afc8ad] p-3 rounded-full flex justify-center items-center"
-          :class="{ active: active.account }"
+          class="bg-[#eee7da] text-[#afc8ad] rounded-full flex justify-center items-center"
+          :class="[{ active: active.account }, user?.image ? 'p-1' : 'p-3']"
           to="/account"
           v-if="loggedIn"
         >
-          <UIcon name="i-heroicons-user-solid" />
+          <UIcon
+            v-if="!user?.image"
+            name="i-heroicons-user-solid"
+            class="w-full h-full"
+            dynamic
+          />
+          <div
+            :class="user.image && 'rounded-full overflow-hidden h-9 w-9'"
+            v-else
+          >
+            <img
+              class="w-full h-full object-cover"
+              :src="user.image"
+              alt="avatar"
+            />
+          </div>
         </NuxtLink>
       </div>
     </header>
@@ -78,7 +93,8 @@ const PAGES = {
   index: "index",
 };
 
-const { status } = useAuth();
+const { status, data } = useAuth();
+
 const route = useRoute();
 
 const active = ref({
@@ -88,6 +104,11 @@ const active = ref({
 });
 
 const loggedIn = computed(() => status.value === "authenticated");
+const user = ref(null);
+
+if (loggedIn.value) {
+  user.value = await $fetch(`/api/users/${data.value.uid}`);
+}
 
 watch(
   () => route.name,
