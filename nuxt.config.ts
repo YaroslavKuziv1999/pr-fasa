@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     "@nuxtjs/tailwindcss",
     "vue3-carousel-nuxt",
+    '@vueuse/nuxt',
+    '@pinia/nuxt'
   ],
   css: ["~/assets/scss/main.scss"],
   colorMode: {
