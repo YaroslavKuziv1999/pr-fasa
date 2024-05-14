@@ -3,13 +3,15 @@
     <Slide v-for="(slide, i) in tablePrices" :key="slide">
       <div class="carousel__item flex flex-col gap-3 p-24">
         <div class="text-4xl text-[green]">{{ slide.name }}</div>
-        <div class="text-5xl font-bold pb-3 w-full">
+        <div
+          class="text-5xl font-bold pb-3 w-full flex justify-center items-center"
+        >
           {{ slide.price }} zł /
           <span class="text-xl opacity-50 text-body-color"
             >{{ slide.time }} {{ slide.unitsOfTime }}</span
           >
         </div>
-        <OrderButton id="order" class="w-full mt-3" />
+        <UIButton id="order" type="order" rounded="md" wfull />
         <div>
           <span class="absolute right-0 top-7 z-[-1] dis">
             <svg

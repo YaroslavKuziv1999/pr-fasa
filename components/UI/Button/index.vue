@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'cursor-not-allowed': disabled }">
+  <div :class="[{ 'cursor-not-allowed': disabled }, { 'w-full': wfull }]">
     <button
       :type="action.type"
       class="flex justify-center items-center gap-2"
@@ -13,7 +13,7 @@
     >
       <UIcon v-if="icon && !loading" :name="icon" />
       <UIcon v-if="loading" name="line-md:loading-loop" dynamic />
-      {{ text }}
+      {{ type === "order" ? "Zamów teraz" : text }}
     </button>
   </div>
 </template>
@@ -29,7 +29,6 @@
 const props = defineProps({
   text: {
     type: String,
-    required: true,
   },
   icon: {
     type: String,
@@ -89,6 +88,8 @@ const getTypeStyle = () => {
       return `bg-[white] text-[#afc8ad] rounded-${props.rounded} border-2 border-[#eee7da]`;
     case "solid":
       return `bg-[white] text-[#afc8ad] p-2 px-3 rounded-${props.rounded} border-2 border-[#eee7da]`;
+    case "order":
+      return `bg-[white] text-[#637381] border border-[#637381] rounded-${props.rounded} p-4 hover:bg-[#637381] hover:text-[white]`;
     default:
       return `bg-[#eee7da] text-[#afc8ad] p-3 rounded-${props.rounded}`;
   }
