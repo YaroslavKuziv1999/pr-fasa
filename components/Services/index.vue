@@ -1,8 +1,9 @@
 <template>
-  <div class="grid grid-cols-4 gap-4">
+  <div class="flex flex-col gap-4">
     <ServicesCard
-      v-for="service in services"
+      v-for="(service, inx) in services"
       :service="service"
+      :index="inx"
       :key="service.id"
     />
   </div>

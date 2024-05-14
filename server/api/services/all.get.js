@@ -1,8 +1,10 @@
 import { getAllServices } from "~/server/db/services";
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
   try {
-    return await getAllServices();
+    const query = getQuery(event);
+    
+    return await getAllServices(query);
   } catch (error) {
     throw createError({
       statusCode: 500,

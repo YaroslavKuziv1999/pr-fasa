@@ -1,20 +1,18 @@
 <template>
   <div
-    class="flex flex-col gap-3 p-12 rounded-md bg-white border border-[green] min-h-[400px]"
+    class="flex bg-gradient-to-r from-[#eee7da] to-[white] hover:bg-none hover:bg-white hover:scale-95 border hover:border-[#88ab8e] gap-3 p-12 rounded-md transition duration-500 cursor-pointer"
   >
-    <div class="text-4xl text-[green]">
+    <div class="text-4xl text-[#88ab8e] flex items-center">
       {{ service.name }}
     </div>
-    <div class="mt-auto">
+    <div class="ml-auto">
       <div class="text-5xl font-bold pb-3 w-full flex justify-center">
         {{ service.price }} zł /
         <span class="text-xl opacity-50 text-body-color flex items-center">
           {{ service.time }} {{ service.unitsOfTime }}
         </span>
       </div>
-      <UIButton rounded="md" text="Zamów teraz" wfull />
     </div>
-    <!-- <OrderButton id="order" class="w-full mt-auto" /> -->
   </div>
 </template>
 
@@ -31,5 +29,6 @@ interface Service {
 
 defineProps({
   service: { type: Object as PropType<Service>, required: true },
+  index: { type: Number, required: true },
 });
 </script>
