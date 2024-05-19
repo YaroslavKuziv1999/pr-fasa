@@ -1,20 +1,30 @@
 <template>
   <div>
-    <UITextHeading text="Uslugi" />
+    <UITextHeading
+      text="Uslugi"
+      :counter="{
+        number: pageStore.getPages,
+        total: allServices.length / count,
+      }"
+    />
     <div class="flex justify-center items-center">
       <UIcon
-        @click="pageLeft"
+        @click="pageStore.subtractPage()"
         name="i-heroicons-arrow-left-circle-16-solid"
         class="text-[50px] mx-5"
-        :class="page === 1 ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'"
+        :class="
+          pageStore.getPages === 1
+            ? 'cursor-not-allowed opacity-50'
+            : 'cursor-pointer'
+        "
       />
       <Services class="flex-1 w-full" :services="services" />
       <UIcon
-        @click="pageRight"
+        @click="pageStore.addPage(allServices.length, count)"
         name="i-heroicons-arrow-right-circle-16-solid"
         class="text-[50px] mx-5"
         :class="
-          page === allServices.length / count
+          pageStore.getPages === allServices.length / count
             ? 'cursor-not-allowed opacity-50'
             : 'cursor-pointer'
         "
@@ -24,21 +34,24 @@
 </template>
 
 <script setup>
-definePageMeta({ middleware: "auth" });
 import { onKeyStroke } from "@vueuse/core";
+import { usePageStore } from "@/stores/PageStore";
+
+definePageMeta({ middleware: "auth" });
+
+const pageStore = usePageStore();
+const { page } = storeToRefs(usePageStore());
+const count = 4;
 
 onKeyStroke(["a", "A", "ArrowLeft"], (e) => {
   e.preventDefault();
-  pageLeft();
+  pageStore.subtractPage();
 });
 
 onKeyStroke(["d", "D", "ArrowRight"], (e) => {
   e.preventDefault();
-  pageRight();
+  pageStore.addPage(allServices.length, count);
 });
-
-const page = ref(1);
-const count = 4;
 
 const allServices = await $fetch(`/api/services/all`, {
   method: "GET",
@@ -46,18 +59,10 @@ const allServices = await $fetch(`/api/services/all`, {
 
 const services = ref([]);
 
-const pageLeft = () => {
-  page.value === 1 ? page.value : --page.value;
-};
-
-const pageRight = () => {
-  page.value === allServices.length / count ? page.value : ++page.value;
-};
-
 const getServicesPagination = async () => {
   return await $fetch(`/api/services/all`, {
     method: "GET",
-    query: { page: page.value, count },
+    query: { page: pageStore.getPages, count },
   });
 };
 
