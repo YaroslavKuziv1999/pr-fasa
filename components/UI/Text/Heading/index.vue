@@ -4,6 +4,7 @@
     :class="margins && 'mt-5 mb-10'"
   >
     {{ text }}
+    <span v-if="counter">[{{ counter.number }}/{{ counter.total }}]</span>
   </div>
 </template>
 
@@ -17,6 +18,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: true,
+  },
+  counter: {
+    type: Object,
+    required: false,
   },
 });
 </script>

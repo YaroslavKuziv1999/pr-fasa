@@ -52,23 +52,29 @@
         </NuxtLink>
         <NuxtLink
           class="bg-[#eee7da] text-[#afc8ad] rounded-full flex justify-center items-center"
-          :class="[{ active: active.account }, user?.image ? 'p-1' : 'p-3']"
+          :class="[
+            { active: active.account },
+            userStore.getUser?.image.src ? 'p-1' : 'p-3',
+          ]"
           to="/account"
           v-if="loggedIn"
         >
           <UIcon
-            v-if="!user?.image"
+            v-if="!userStore.getUser?.image.src"
             name="i-heroicons-user-solid"
             class="w-full h-full"
             dynamic
           />
           <div
-            :class="user.image && 'rounded-full overflow-hidden h-9 w-9'"
+            :class="
+              userStore.getUser.image.src &&
+              'rounded-full overflow-hidden h-9 w-9'
+            "
             v-else
           >
             <img
               class="w-full h-full object-cover"
-              :src="user.image"
+              :src="userStore.getUser.image.src"
               alt="avatar"
             />
           </div>
@@ -93,7 +99,7 @@ const PAGES = {
   index: "index",
 };
 
-const { status, data } = useAuth();
+const { status } = useAuth();
 
 const route = useRoute();
 
@@ -104,10 +110,10 @@ const active = ref({
 });
 
 const loggedIn = computed(() => status.value === "authenticated");
-const user = ref(null);
 
+const userStore = useUserStore();
 if (loggedIn.value) {
-  user.value = await $fetch(`/api/users/${data.value.uid}`);
+  await userStore.initUser();
 }
 
 watch(

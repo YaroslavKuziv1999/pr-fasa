@@ -9,8 +9,8 @@
       <div v-if="!edit" class="relative">
         <div class="rounded-full overflow-hidden h-72 w-72">
           <img
-            v-if="state.image.src"
-            :src="state.image.src"
+            v-if="userStore.getUser.image.src"
+            :src="userStore.getUser.image.src"
             alt="Avatar"
             class="w-full h-full object-cover"
           />
@@ -42,6 +42,17 @@
             />
           </div>
         </label>
+        <div
+          v-if="userStore.getUser.image.src && !loadingImage"
+          @click="() => deleteAvatar()"
+          class="flex justify-center items-center p-1 bg-[white] rounded-full absolute bottom-3 right-14 border-[1px] border-[#f2f1eb] cursor-pointer"
+        >
+          <UIcon
+            class="w-[1vw] h-[1vw] text-[red]"
+            name="i-heroicons-x-mark-16-solid"
+            dynamic
+          />
+        </div>
       </div>
       <div class="flex flex-col w-full gap-5 px-10 items-center justify-center">
         <!-- Inputs -->
@@ -77,14 +88,14 @@
             </div>
             <div class="flex flex-col w-full gap-5">
               <div v-if="!edit" class="flex gap-3">
-                <UFormGroup description="Password" class="w-full">
+                <UFormGroup description="Password" class="w-full flex-1">
                   <UButtonGroup orientation="horizontal" class="w-full">
                     <UInput
                       class="w-full"
                       name="Password"
                       type="password"
                       disabled
-                      v-model="user.password"
+                      v-model="user.hashedPassword"
                     />
                     <UTooltip
                       text="It is just a placeholder (not the actual password)"
@@ -99,7 +110,7 @@
                 <UIButton
                   @click="() => handlePasswordChange()"
                   text="Change Password"
-                  class="text-sm w-[50%]"
+                  class="text-sm basis-1/3"
                   rounded="md"
                   type="solid-sh"
                   icon="i-heroicons-key-20-solid"
@@ -165,30 +176,12 @@
 
 <script setup>
 import { UpdateUserSchema } from "../../schemas/updateSchema";
-const props = defineProps({
-  user: {
-    id: {
-      type: String,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-  },
-});
-const { user } = props;
+
+const userStore = useUserStore();
+
+await userStore.initUser();
+
+const user = userStore.getUser;
 
 const state = reactive({
   email: user.email,
@@ -208,15 +201,7 @@ const handlePasswordChange = async () => {
   loading.value = true;
 
   try {
-    let resp = await $fetch("/api/password/reset", {
-      method: "POST",
-      body: {
-        to: state.email,
-        subject: "Password Reset",
-      },
-    });
-
-    sessionStorage.setItem("code", resp);
+    await userStore.passwordChange();
 
     await navigateTo({ path: "/password" });
   } catch (error) {
@@ -289,6 +274,33 @@ const onFileChange = async (e) => {
       color: "red",
     });
   } finally {
+    await userStore.initUser();
+    loadingImage.value = false;
+  }
+};
+
+const deleteAvatar = async () => {
+  try {
+    loadingImage.value = true;
+
+    if (state.image.id.length) {
+      await $fetch(`/api/media/${state.image.id.pop()}`, {
+        method: "DELETE",
+      });
+
+      state.image.size = "";
+
+      await userStore.updateUser({ image: "" });
+    }
+  } catch (error) {
+    toast.add({
+      title: "Something went wrong with Deleting Image",
+      description: "Try again",
+      icon: "i-heroicons-exclamation-circle-16-solid",
+      color: "red",
+    });
+  } finally {
+    await userStore.initUser();
     loadingImage.value = false;
   }
 };
@@ -330,14 +342,10 @@ const updateUser = async () => {
   }
 
   try {
-    await $fetch(`/api/users/update`, {
-      method: "POST",
-      body: {
-        id: user.id,
-        email: state.email,
-        name: state.name,
-        phone: state.phone,
-      },
+    await userStore.updateUser({
+      email: state.email,
+      name: state.name,
+      phone: state.phone,
     });
   } catch (error) {
     toast.add({
@@ -358,9 +366,7 @@ const deleteUser = async () => {
 
   try {
     if (answer) {
-      await $fetch(`/api/users/${user.id}`, {
-        method: "DELETE",
-      });
+      await userStore.deleteUser();
       const { signOut } = useAuth();
       signOut();
     } else {
