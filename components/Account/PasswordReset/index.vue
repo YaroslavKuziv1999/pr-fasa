@@ -46,6 +46,7 @@
     <div class="flex flex-col gap-3" v-else>
       <UITextHeading text="Reset Password" />
       <UForm
+        ref="form"
         :schema="ResetPasswordSchema"
         :state="state"
         @submit="savePassword"
@@ -106,7 +107,7 @@
         <div class="flex flex-row w-full gap-3 mt-5">
           <UIButton
             class="flex-1"
-            @click="async () => await navigateTo('/account')"
+            @click="async () => await handleCancel()"
             rounded="md"
             type="danger"
             text="Cancel"
@@ -139,6 +140,7 @@ const { userId } = props;
 
 const toast = useToast();
 
+const form = ref();
 const code = ref(null);
 const edit = ref(false);
 const loading = ref(false);
@@ -151,6 +153,13 @@ const state = reactive({
 
 const handleDisableStyle = () => {
   return !state.password && !state.confirmPassword ? true : false;
+};
+
+const handleCancel = async () => {
+  form.value.clear();
+  await navigateTo("/account");
+  state.password = "";
+  state.confirmPassword = "";
 };
 
 const checkCode = async () => {
