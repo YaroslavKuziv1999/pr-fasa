@@ -112,7 +112,7 @@
             type="danger"
             text="Cancel"
             icon="i-heroicons-x-circle-16-solid"
-            wfull
+            w-full
           />
           <UIButton
             class="flex-1"
@@ -123,7 +123,7 @@
             :loading="loading"
             action="submit"
             :disabled="handleDisableStyle()"
-            wfull
+            w-full
           />
         </div>
       </UForm>

@@ -97,14 +97,10 @@
                       disabled
                       v-model="user.hashedPassword"
                     />
-                    <UTooltip
+                    <UIToolTip
                       text="It is just a placeholder (not the actual password)"
-                    >
-                      <UButton
-                        icon="i-heroicons-information-circle-16-solid"
-                        color="gray"
-                      />
-                    </UTooltip>
+                      isButton
+                    />
                   </UButtonGroup>
                 </UFormGroup>
                 <UIButton
@@ -115,8 +111,7 @@
                   type="solid-sh"
                   icon="i-heroicons-key-20-solid"
                   :loading="loading"
-                  wfull
-                  hfull
+                  block
                 />
               </div>
               <UFormGroup description="Email" name="email">

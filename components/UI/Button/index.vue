@@ -1,12 +1,16 @@
 <template>
-  <div :class="[{ 'cursor-not-allowed': disabled }, { 'w-full': wfull }]">
+  <div
+    :class="[{ 'cursor-not-allowed': disabled }, { 'w-full': $props['wFull'] }]"
+  >
     <button
       :type="action.type"
       class="flex justify-center items-center gap-2"
       :class="[
         getTypeStyle(),
-        { 'w-full': wfull },
-        { 'h-full': hfull },
+        { 'w-full': $props['wFull'] },
+        { 'h-full': $props['hFull'] },
+        { 'w-full': block },
+        { 'h-full': block },
         { disabled: disabled },
         { 'flex-row-reverse': reverse },
       ]"
@@ -38,12 +42,17 @@ const props = defineProps({
     type: String,
     required: false,
   },
-  wfull: {
+  "w-full": {
     type: Boolean,
     required: false,
     default: false,
   },
-  hfull: {
+  "h-full": {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  block: {
     type: Boolean,
     required: false,
     default: false,

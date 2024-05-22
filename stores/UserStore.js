@@ -18,11 +18,17 @@ export const useUserStore = defineStore("UserStore", {
   },
 
   actions: {
+    async initUserId() {
+      const { data } = useAuth();
+      this.user.id = data.value.uid;
+    },
     async initUser() {
       const { data } = useAuth();
 
       this.user = await $fetch(`/api/users/${data.value.uid}`);
-      this.images = await $fetch(`/api/media/${this.user.id}`, { method: "GET" });
+      this.images = await $fetch(`/api/media/${this.user.id}`, {
+        method: "GET",
+      });
     },
     async updateUser(data) {
       await $fetch(`/api/users/update`, {
@@ -35,7 +41,7 @@ export const useUserStore = defineStore("UserStore", {
         method: "DELETE",
       });
     },
-    async passwordChange(){
+    async passwordChange() {
       await this.initUser();
 
       let response = await $fetch("/api/password/reset", {
@@ -45,7 +51,7 @@ export const useUserStore = defineStore("UserStore", {
           subject: "Password Reset",
         },
       });
-  
+
       sessionStorage.setItem("code", response);
     },
   },
