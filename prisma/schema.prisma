@@ -51,7 +51,9 @@ model Services {
 }
 
 model Records {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  notifications Boolean
+  dateOfVisit   DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
