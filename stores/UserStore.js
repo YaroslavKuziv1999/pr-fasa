@@ -18,10 +18,6 @@ export const useUserStore = defineStore("UserStore", {
   },
 
   actions: {
-    async initUserId() {
-      const { data } = useAuth();
-      this.user.id = data.value.uid;
-    },
     async initUser() {
       const { data } = useAuth();
 
