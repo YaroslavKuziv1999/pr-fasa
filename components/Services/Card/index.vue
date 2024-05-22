@@ -1,5 +1,6 @@
 <template>
   <div
+    @click="openModal"
     class="flex bg-gradient-to-r from-[#eee7da] to-[white] hover:bg-none hover:bg-white hover:scale-95 border hover:border-[#88ab8e] gap-3 p-12 rounded-md transition duration-500 cursor-pointer"
   >
     <div class="text-4xl text-[#88ab8e] flex items-center">
@@ -16,19 +17,19 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import type { PropType } from "vue";
+<script setup>
+import ServicesCardModal from "@/components/Services/Card/Modal";
 
-interface Service {
-  id: string;
-  name: string;
-  price: number;
-  time: number;
-  unitsOfTime: string;
-}
-
-defineProps({
-  service: { type: Object as PropType<Service>, required: true },
+const props = defineProps({
+  service: { type: Object, required: true },
   index: { type: Number, required: true },
 });
+
+const modal = useModal();
+
+const openModal = () => {
+  modal.open(ServicesCardModal, {
+    service: props.service,
+  });
+};
 </script>
