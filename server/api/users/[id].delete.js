@@ -1,4 +1,5 @@
 import { deleteAllMediaFiles } from "~/server/db/mediaFiles";
+import { deleteAllRecords } from "~/server/db/records";
 import { deleteUser } from "~/server/db/users";
 
 export default defineEventHandler(async (event) => {
@@ -12,6 +13,7 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    await deleteAllRecords(id);
     await deleteAllMediaFiles(id);
     await deleteUser(id);
   } catch (error) {

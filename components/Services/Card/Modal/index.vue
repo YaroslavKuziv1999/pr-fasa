@@ -1,6 +1,9 @@
 <template>
   <UModal>
-    <UForm :state="state" @submit="createVisitRecord">
+    <UForm
+      :state="state"
+      @submit="recordId ? editRecord($event) : createVisitRecord($event)"
+    >
       <UCard
         :ui="{
           footer: {
@@ -22,7 +25,10 @@
         <template #footer>
           <div>
             <div class="flex justify-between items-center mb-5">
-              <div class="flex justify-center items-center gap-1">
+              <div
+                v-if="!recordId"
+                class="flex justify-center items-center gap-1"
+              >
                 <UCheckbox
                   v-model="state.notifications"
                   name="notifications"
@@ -32,7 +38,7 @@
                   <template #text>{{ toolTip }}</template>
                 </UIToolTip>
               </div>
-              <div class="flex justify-center items-center">
+              <div v-if="!recordId" class="flex justify-center items-center">
                 <div class="text-3xl font-bold w-full flex justify-center">
                   {{ service.price }} zł /
                   <span
@@ -60,6 +66,8 @@
 
 <script lang="ts" setup>
 import type { PropType } from "vue";
+import addDay from "date-fns/addDays";
+import getDay from "date-fns/getDay";
 
 interface Service {
   id: string;
@@ -69,17 +77,36 @@ interface Service {
   unitsOfTime: string;
 }
 
+interface Record {
+  id: string;
+  notifications: boolean;
+  dateOfVisit: string;
+  service: Service;
+}
+
 const props = defineProps({
   service: { type: Object as PropType<Service>, required: true },
-});
-
-const state = reactive({
-  date: new Date(),
-  notifications: true,
+  recordId: { type: String, required: false },
 });
 
 const { id } = useUserStore().getUser as any;
+const recordsStore = useRecordsStore() as any;
+
 const modal = useModal();
+
+const getDateState = () =>
+  getDay(new Date()) === 0 ? addDay(new Date(), 1) : new Date();
+
+const state = reactive({
+  date: !props.recordId
+    ? getDateState()
+    : new Date(
+        recordsStore.getRecords.find(
+          (rec: any) => rec.id === props.recordId
+        ).dateOfVisit
+      ),
+  notifications: true,
+});
 
 const toolTip =
   "This will turn off/on notifications(sms/email) before the visit";
@@ -97,5 +124,23 @@ const createVisitRecord = async (e: any) => {
 
   modal.close();
   await navigateTo("/records");
+};
+
+const editRecord = async (e: any) => {
+  let body = {
+    id: props.recordId,
+    data: {
+      dateOfVisit: new Date(state.date).toISOString(),
+      userId: id,
+      serviceId: props.service.id,
+    },
+  };
+
+  await recordsStore.updateRecord(body);
+
+  await recordsStore.initRecords();
+  await recordsStore.initAllRecords();
+
+  modal.close();
 };
 </script>

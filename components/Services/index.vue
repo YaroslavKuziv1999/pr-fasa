@@ -3,7 +3,6 @@
     <ServicesCard
       v-for="(service, inx) in services"
       :service="service"
-      :index="inx"
       :key="service.id"
     />
   </div>

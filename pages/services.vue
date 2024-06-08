@@ -39,6 +39,8 @@ import { usePageStore } from "@/stores/PageStore";
 
 definePageMeta({ middleware: "auth" });
 
+await useRecordsStore().initAllRecords();
+
 const pageStore = usePageStore();
 const { page } = storeToRefs(usePageStore());
 const count = 4;
