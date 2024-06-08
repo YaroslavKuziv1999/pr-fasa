@@ -6,7 +6,7 @@
       :type="action.type"
       class="flex justify-center items-center gap-2"
       :class="[
-        getTypeStyle(),
+        getTypeStyle() + 'rounded-' + rounded,
         { 'w-full': $props['wFull'] },
         { 'h-full': $props['hFull'] },
         { 'w-full': block },
@@ -17,7 +17,7 @@
     >
       <UIcon v-if="icon && !loading" :name="icon" />
       <UIcon v-if="loading" name="line-md:loading-loop" dynamic />
-      {{ type === "order" ? "Zamów teraz" : text }}
+      {{ getText() }}
     </button>
   </div>
 </template>
@@ -33,6 +33,7 @@
 const props = defineProps({
   text: {
     type: String,
+    required: false,
   },
   icon: {
     type: String,
@@ -90,17 +91,36 @@ const props = defineProps({
 });
 
 const getTypeStyle = () => {
+  const base = function (bg, color, border) {
+    return `bg-[${bg}] text-[${color}] ${
+      props.rounded && "rounded-" + props.rounded
+    } ${border && "border-2 border-[#eee7da]"} ${
+      [...arguments].splice(3).length > 0 && [...arguments].splice(3).join(" ")
+    }`;
+  };
   switch (props.type) {
     case "danger":
-      return `bg-[white] text-[red] p-2 px-3 rounded-${props.rounded} border-2 border-[#eee7da]`;
+      return base("white", "red", true, "p-2 px-3");
     case "solid-sh":
-      return `bg-[white] text-[#afc8ad] rounded-${props.rounded} border-2 border-[#eee7da]`;
+      return base("white", "#afc8ad", true);
     case "solid":
-      return `bg-[white] text-[#afc8ad] p-2 px-3 rounded-${props.rounded} border-2 border-[#eee7da]`;
+      return base("white", "#afc8ad", true, "p-2 px-3");
     case "order":
-      return `bg-[white] text-[#637381] border border-[#637381] rounded-${props.rounded} p-4 hover:bg-[#637381] hover:text-[white]`;
+      return base(
+        "white",
+        "#637381",
+        true,
+        "p-4 hover:bg-[#637381] hover:text-[white] "
+      );
     default:
-      return `bg-[#eee7da] text-[#afc8ad] p-3 rounded-${props.rounded}`;
+      return base("#eee7da", "#afc8ad", false, "p-3");
   }
+};
+
+const getText = () => {
+  if (props.type === "order") {
+    return "Zamów teraz";
+  }
+  return props.text;
 };
 </script>
