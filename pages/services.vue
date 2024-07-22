@@ -8,27 +8,33 @@
       }"
     />
     <div class="flex justify-center items-center">
-      <UIcon
-        @click="pageStore.subtractPage()"
-        name="i-heroicons-arrow-left-circle-16-solid"
-        class="text-[50px] mx-5"
-        :class="
-          pageStore.getPages === 1
-            ? 'cursor-not-allowed opacity-50'
-            : 'cursor-pointer'
-        "
-      />
+      <UIPulse :centered="false" class="mx-5">
+        <UIcon
+          @click="pageStore.subtractPage()"
+          name="i-heroicons-arrow-left-circle-16-solid"
+          class="text-[50px] text-[white]"
+          :class="
+            pageStore.getPages === 1
+              ? 'cursor-not-allowed opacity-50'
+              : 'cursor-pointer '
+          "
+        />
+      </UIPulse>
+
       <Services class="flex-1 w-full" :services="services" />
-      <UIcon
-        @click="pageStore.addPage(allServices.length, count)"
-        name="i-heroicons-arrow-right-circle-16-solid"
-        class="text-[50px] mx-5"
-        :class="
-          pageStore.getPages === allServices.length / count
-            ? 'cursor-not-allowed opacity-50'
-            : 'cursor-pointer'
-        "
-      />
+
+      <UIPulse :centered="false" class="mx-5">
+        <UIcon
+          @click="pageStore.addPage(allServices.length, count)"
+          name="i-heroicons-arrow-right-circle-16-solid"
+          class="text-[50px] text-[white]"
+          :class="
+            pageStore.getPages === allServices.length / count
+              ? 'cursor-not-allowed opacity-50'
+              : 'cursor-pointer'
+          "
+        />
+      </UIPulse>
     </div>
   </div>
 </template>

@@ -1,12 +1,14 @@
 <template>
   <div>
     <div v-if="!loggedIn" @click="isOpen = true">
-      <button
-        class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-      >
-        <UIcon name="i-heroicons-user-solid" />
-        Zaloguj się
-      </button>
+      <UIPulse :scale="10" :opacity="0.1" rounded="100px">
+        <button
+          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+        >
+          <UIcon name="i-heroicons-user-solid" />
+          Zaloguj się
+        </button>
+      </UIPulse>
     </div>
     <div v-else @click="handleSignOut">
       <button
