@@ -52,6 +52,7 @@ const notifications = ref(
 const deleteAll = async () => {
   await recordsStore.deleteAllUserRecords();
   await recordsStore.initRecords();
+  if (!recordsStore.getRecords.length) navigateTo("/account");
 };
 
 const handleAllNotifications = async (e) => {

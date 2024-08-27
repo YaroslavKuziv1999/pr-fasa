@@ -1,10 +1,8 @@
 import { prisma } from ".";
 
-//TODO: Add try catch
-
-export const createRecord = (record) => {
-  return prisma.records.create({
-    data: record,
+export const createRecord = async (record) => {
+  return await prisma.records.create({
+    data: { ...record, dateOfVisit: new Date(record.dateOfVisit) },
   });
 };
 

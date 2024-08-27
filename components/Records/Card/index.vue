@@ -88,5 +88,6 @@ const editRecord = async () => {
 const deleteRecord = async () => {
   await recordsStore.deleteRecord(props.record.id);
   await recordsStore.initRecords();
+  if(!recordsStore.getRecords.length) navigateTo('/account');
 };
 </script>

@@ -34,29 +34,39 @@
         <SignInUp />
         <NuxtLink
           class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-          :class="{ active: active.services }"
           to="/services"
+          activeClass="active"
           v-if="loggedIn"
         >
           <UIcon name="i-heroicons-fire-20-solid" />
           Usługi
         </NuxtLink>
-        <NuxtLink
-          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-          to="/records"
-          :class="{ active: active.records }"
+        <UIToolTip
           v-if="loggedIn"
+          :text="recordsStore.getRecords.length ? '' : 'There are no records'"
+          :class="
+            !recordsStore.getRecords.length && loggedIn
+              ? 'cursor-not-allowed opacity-50'
+              : ''
+          "
         >
-          <UIcon name="i-heroicons-clipboard-20-solid" />
-          Informacje o zapisie
-        </NuxtLink>
+          <NuxtLink
+            class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
+            to="/records"
+            activeClass="active"
+            :class="{
+              disabled: !recordsStore.getRecords.length,
+            }"
+          >
+            <UIcon name="i-heroicons-clipboard-20-solid" />
+            Informacje o zapisie
+          </NuxtLink>
+        </UIToolTip>
         <NuxtLink
           class="bg-[#eee7da] text-[#afc8ad] rounded-full flex justify-center items-center"
-          :class="[
-            { active: active.account },
-            userStore.getUser?.image.src ? 'p-1' : 'p-3',
-          ]"
+          :class="[userStore.getUser?.image.src ? 'p-1' : 'p-3']"
           to="/account"
+          activeClass="active"
           v-if="loggedIn"
         >
           <UIcon
@@ -89,56 +99,24 @@
   color: $belge;
   background-color: $sage;
 }
+
+.disabled {
+  pointer-events: none;
+  color: gray;
+}
 </style>
 
 <script setup>
-const PAGES = {
-  account: "account",
-  services: "services",
-  records: "records",
-  index: "index",
-};
-
 const { status } = useAuth();
-
-const route = useRoute();
-
-const active = ref({
-  account: true,
-  services: false,
-  records: false,
-});
 
 const loggedIn = computed(() => status.value === "authenticated");
 
 const userStore = useUserStore();
+const recordsStore = useRecordsStore();
+
 if (loggedIn.value) {
+  await recordsStore.initAllRecords();
+  await recordsStore.refreshRecords();
   await userStore.initUser();
 }
-
-watch(
-  () => route.name,
-  (routeName) => {
-    if (loggedIn.value) {
-      switch (routeName) {
-        case PAGES.account:
-          active.value = { account: true, services: false, records: false };
-          break;
-        case PAGES.services:
-          active.value = { account: false, services: true, records: false };
-          break;
-        case PAGES.records:
-          active.value = { account: false, services: false, records: true };
-          break;
-        case PAGES.index:
-          active.value = { account: false, services: false, records: false };
-          break;
-        default:
-          active.value = { account: true, services: false, records: false };
-          break;
-      }
-    }
-  },
-  { deep: true, immediate: true }
-);
 </script>

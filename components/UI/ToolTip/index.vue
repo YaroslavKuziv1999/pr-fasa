@@ -1,6 +1,7 @@
 <template>
   <UTooltip
     :text="text"
+    :prevent="prevent ? prevent : !text"
     :popper="{ arrow: arrow, placement: placementTransformer() }"
     :ui="{
       base: 'h-auto',
@@ -39,6 +40,11 @@ const props = defineProps({
     default: false,
   },
   arrow: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  prevent: {
     type: Boolean,
     required: false,
     default: false,
