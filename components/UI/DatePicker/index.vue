@@ -65,14 +65,25 @@ const rules = ref({
     const currentHour = getHours(new Date());
     const currentDay = getDate(new Date());
 
-    if (day === currentDay && [7].includes(weekday))
-      return hour >= 9 && hour <= 16 && hour >= currentHour;
+    const minHour = 9;
 
-    if (day === currentDay)
-      return hour >= 9 && hour <= 21 && hour >= currentHour;
+    const holidayMaxHour = 16;
+    const regularMaxHour = 21;
 
-    if ([7].includes(weekday)) return hour >= 9 && hour <= 16;
-    else return hour >= 9 && hour <= 21;
+    if (
+      day === currentDay &&
+      [7].includes(weekday) &&
+      currentHour <= holidayMaxHour
+    )
+      return hour >= minHour && hour <= holidayMaxHour && hour >= currentHour;
+
+    if (day === currentDay && currentHour <= regularMaxHour)
+      return hour >= minHour && hour <= regularMaxHour && hour >= currentHour;
+
+    if ([7].includes(weekday) && currentHour <= holidayMaxHour)
+      return hour >= 9 && hour <= holidayMaxHour;
+
+    return hour >= minHour && hour <= regularMaxHour;
   },
   minutes: (minutes, { weekday, day }) => {
     const currentMinutes = getMinutes(new Date());
