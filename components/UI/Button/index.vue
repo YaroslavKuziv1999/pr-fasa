@@ -3,6 +3,7 @@
     :class="[{ 'cursor-not-allowed': disabled }, { 'w-full': $props['wFull'] }]"
   >
     <button
+      @click="handleClick"
       :type="action.type"
       class="flex justify-center items-center gap-2"
       :class="[
@@ -30,6 +31,8 @@
 </style>
 
 <script setup>
+import SignInUpModal from "@/components/SignInUp/Modal";
+
 const props = defineProps({
   text: {
     type: String,
@@ -80,7 +83,7 @@ const props = defineProps({
       return "button";
     },
     validator(value) {
-      return ["button", "submit", "reset"].includes(value);
+      return ["button", "submit", "reset", "signInUp"].includes(value);
     },
   },
   loading: {
@@ -89,6 +92,22 @@ const props = defineProps({
     default: false,
   },
 });
+
+const modal = useModal();
+const { status } = useAuth();
+const loggedIn = computed(() => status.value === "authenticated");
+
+const handleClick = () => {
+  switch (props.action) {
+    case "signInUp":
+      if (!loggedIn.value)
+        modal.open(SignInUpModal, { navigateToServices: true });
+      else navigateTo("/services");
+      break;
+    default:
+      return;
+  }
+};
 
 const getTypeStyle = () => {
   const base = function (bg, color, border) {

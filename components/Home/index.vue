@@ -1,7 +1,16 @@
 <template>
   <div class="flex flex-col gap-8">
+    <Transition>
+      <button
+        v-if="y <= 350"
+        class="absolute bottom-10 right-10 animate-bounce"
+        @click="scrollToIntro()"
+      >
+        <UIcon class="text-5xl" name="i-heroicons-arrow-down-circle-16-solid" />
+      </button>
+    </Transition>
     <HomeIntro />
-    <Prices class="scrollAnim" />
+    <Prices class="scrollAnim" ref="prices" />
     <div>
       <Business class="scrollAnim" />
       <HomePricing class="scrollAnim" />
@@ -11,9 +20,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { useWindowScroll } from "@vueuse/core";
 
-const scrollAnim = ref(null);
+const { y } = useWindowScroll({ behavior: "smooth" });
+
+const prices = ref();
+
+const scrollToIntro = () => {
+  prices.value.$el.scrollIntoView({ behavior: "smooth" });
+};
 
 onMounted(() => {
   let delay = 0.2;
@@ -47,6 +62,16 @@ onMounted(() => {
   -moz-transform: translateY(20px);
   -ms-transform: translateY(20px);
   -o-transform: translateY(20px);
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .animate-delay {

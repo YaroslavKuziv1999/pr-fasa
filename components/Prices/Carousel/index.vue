@@ -11,7 +11,14 @@
             >{{ slide.time }} {{ slide.unitsOfTime }}</span
           >
         </div>
-        <UIButton id="order" type="order" rounded="md" w-full />
+        <UIButton
+          id="order"
+          type="order"
+          rounded="md"
+          action="signInUp"
+          w-full
+        />
+
         <div>
           <span class="absolute right-0 top-7 z-[-1] dis">
             <svg

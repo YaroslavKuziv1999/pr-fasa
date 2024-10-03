@@ -33,7 +33,7 @@ const props = defineProps({
   delay: {
     type: Number,
     required: false,
-    default: -1,
+    default: 0,
   },
   timeMultiply: {
     type: Number,
@@ -74,6 +74,11 @@ const props = defineProps({
     type: Number,
     required: false,
     default: 3,
+  },
+  active: {
+    type: Boolean,
+    required: false,
+    default: true,
   },
 });
 

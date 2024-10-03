@@ -114,9 +114,11 @@ const loggedIn = computed(() => status.value === "authenticated");
 const userStore = useUserStore();
 const recordsStore = useRecordsStore();
 
-if (loggedIn.value) {
-  await recordsStore.initAllRecords();
-  await recordsStore.refreshRecords();
-  await userStore.initUser();
-}
+watch(status, async () => {
+  if (status.value === "authenticated") {
+    await recordsStore.initAllRecords();
+    await recordsStore.refreshRecords();
+    await userStore.initUser();
+  }
+});
 </script>
