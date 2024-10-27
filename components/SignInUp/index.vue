@@ -1,21 +1,15 @@
 <template>
   <div>
     <div v-if="!loggedIn" @click="openModal">
-      <UIPulse :scale="10" :opacity="0.1" rounded="100px">
-        <button
-          class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-        >
-          <UIcon name="i-heroicons-user-solid" />
-          Zaloguj się
-        </button>
-      </UIPulse>
+      <button class="header-buttons py-2 px-4 gap-2">
+        <UIcon name="i-lets-icons-sign-in-circle-duotone-line" dynamic />
+        <span>Zaloguj się</span>
+      </button>
     </div>
     <div v-else @click="handleSignOut">
-      <button
-        class="bg-[#eee7da] text-[#afc8ad] py-2 px-4 rounded-full flex justify-center items-center gap-2"
-      >
+      <button class="header-buttons py-2 px-4 gap-2">
         <UIcon name="i-heroicons-arrow-left-end-on-rectangle-16-solid" />
-        Wyloguj
+        <span>Wyloguj</span>
       </button>
     </div>
   </div>

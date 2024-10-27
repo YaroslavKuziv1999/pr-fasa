@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media all and (min-width: 0px) and (max-width: 1025px) {
+    .header-buttons-ava {
+        width: 100%;
+        border-width: 2px;
+    }
+
+    .header-buttons-ava span {
+        position: absolute;
+        display: block;
+    }
+
+    .header-buttons {
+        width: 100%;
+        border-width: 2px;
+    }
+
+    .header-buttons span {
+        margin-right: auto;
+    }
+}
+
+@media all and (min-width: 1025px) and (max-width: 1536px) {
+    .header-buttons {
+        color: $lightGreen;
+        border-width: 2px;
+        border-color: $lightGreen;
+    }
+
+    .header-buttons-ava {
+        border-width: 0;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center;
+    border-radius: 999px;
+    align-items: center;
+}
+
+@media (min-width: 1536px) {
+    .header-buttons {
+        border-width: 0;
+        background-color: $belge;
+        color: $lightGreen;
+    }
+}

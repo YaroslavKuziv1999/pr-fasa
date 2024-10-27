@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html::-webkit-scrollbar{
-  display: none;
-}
+// html::-webkit-scrollbar{
+//   display: none;
+// }
 
 body {
   background-color: $backgroundPrimary;
   font-family: "Rozha One", serif;
   color: $sage;
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  // overflow-x: hidden;
+  // -ms-overflow-style: none;
+  // scrollbar-width: none;
 }
-
 
 .custom-shape-divider-top-1711316342 {
   position: absolute;
@@ -33,5 +33,5 @@ body {
 }
 
 .custom-shape-divider-top-1711316342 .shape-fill {
-  fill: #EEE7DA;
+  fill: #eee7da;
 }

@@ -1,12 +1,17 @@
 <template>
-  <UModal :transition="false">
+  <UModal :fullscreen="width <= lgBreakpoint" :transition="false">
     <UTabs
       :items="items"
-      class="w-full"
+      class="w-full ring-0 shadow-none"
       :ui="{
         strategy: 'override',
         list: {
+          height: `${width <= lgBreakpoint ? 'h-16' : 'h-10'}`,
           rounded: 'rounded-t-lg',
+          tab: {
+            height: `${width <= lgBreakpoint ? 'h-14' : 'h-8'}`,
+            size: `${width <= lgBreakpoint ? 'text-xl' : 'text-base'}`,
+          },
         },
       }"
     >
@@ -16,7 +21,7 @@
           :schema="item.key === 'login' ? LoginSchema : RegisterSchema"
         >
           <UCard
-            class="divide-none rounded-lg text-[black]"
+            class="divide-none rounded-lg text-[black] ring-0 shadow-none my-0"
             @submit.prevent="
               () => onSubmit(item.key === 'login' ? login : register, item.key)
             "
@@ -32,20 +37,36 @@
             }"
           >
             <template #header>
-              <div class="flex justify-center items-center">
-                {{ item.label }}
+              <div
+                class="flex flex-row-reverse justify-center items-center mt-5"
+              >
+                <div
+                  :class="
+                    width <= lgBreakpoint ? 'text-xl text-start' : 'text-base'
+                  "
+                >
+                  {{ item.label }}
+                </div>
               </div>
             </template>
 
             <div v-if="item.key === 'login'" class="space-y-3">
-              <UFormGroup label="Email" name="email">
+              <UFormGroup
+                label="Email"
+                name="email"
+                :size="width <= lgBreakpoint ? 'xl' : 'md'"
+              >
                 <UInput
                   v-model="login.email"
                   placeholder="you@example.com"
                   icon="i-heroicons-envelope"
                 />
               </UFormGroup>
-              <UFormGroup label="Hasło" name="password">
+              <UFormGroup
+                label="Hasło"
+                name="password"
+                :size="width <= lgBreakpoint ? 'xl' : 'md'"
+              >
                 <UButtonGroup
                   :ui="{
                     wrapper: {
@@ -72,21 +93,33 @@
               </UFormGroup>
             </div>
             <div v-else-if="item.key === 'register'" class="space-y-3">
-              <UFormGroup label="Email" name="email">
+              <UFormGroup
+                label="Email"
+                name="email"
+                :size="width <= lgBreakpoint ? 'xl' : 'md'"
+              >
                 <UInput
                   v-model="register.email"
                   placeholder="you@example.com"
                   icon="i-heroicons-envelope"
                 />
               </UFormGroup>
-              <UFormGroup label="Numer telefonu" name="phone">
+              <UFormGroup
+                label="Numer telefonu"
+                name="phone"
+                :size="width <= lgBreakpoint ? 'xl' : 'md'"
+              >
                 <UInput
                   v-model="register.phone"
                   icon="i-heroicons-phone"
                   placeholder="+48 111 222 333"
                 />
               </UFormGroup>
-              <UFormGroup label="Hasło" name="password">
+              <UFormGroup
+                label="Hasło"
+                name="password"
+                :size="width <= lgBreakpoint ? 'xl' : 'md'"
+              >
                 <UButtonGroup
                   :ui="{
                     wrapper: {
@@ -114,13 +147,33 @@
             </div>
 
             <template #footer>
-              <UButton
-                :loading="loading"
-                type="submit"
-                block
-                class="p-3 text-main bg-main border border-color rounded-md text-center transition"
-                :label="item.label"
-              />
+              <div class="flex flex-col-reverse gap-3 text-center">
+                <UButton
+                  color="red"
+                  size="xl"
+                  variant="ghost"
+                  icon="i-heroicons-x-mark-20-solid"
+                  class="p-3 border border-[red] rounded-md"
+                  v-if="width <= lgBreakpoint"
+                  @click="() => modal.close()"
+                  block
+                >
+                  Go Back
+                </UButton>
+                <UButton
+                  :loading="loading"
+                  type="submit"
+                  :size="width <= lgBreakpoint ? 'xl' : 'md'"
+                  color="black"
+                  block
+                  class="p-3 text-main bg-main border border-color rounded-md transition"
+                  :label="item.label"
+                >
+                  <template #leading>
+                    <UIcon :name="item.icon" dynamic />
+                  </template>
+                </UButton>
+              </div>
             </template>
           </UCard>
         </UForm>
@@ -134,6 +187,10 @@ import {
   LoginSchema,
   RegisterSchema,
 } from "../../../schemas/registerLoginSchema";
+import { useWindowSize } from "@vueuse/core";
+
+const { width } = useWindowSize();
+const lgBreakpoint = 1030;
 
 const props = defineProps({
   navigateToServices: { type: Boolean, required: false, default: false },
@@ -153,10 +210,12 @@ const items = [
   {
     key: "login",
     label: "Zaloguj się",
+    icon: "i-lets-icons-sign-in-circle-duotone-line",
   },
   {
     key: "register",
     label: "Załóż konto",
+    icon: "i-streamline-interface-share-user-human-person-share-signal-transmit-user",
   },
 ];
 

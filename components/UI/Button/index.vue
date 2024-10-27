@@ -8,6 +8,7 @@
       class="flex justify-center items-center gap-2"
       :class="[
         getTypeStyle() + 'rounded-' + rounded,
+        'text-' + size,
         { 'w-full': $props['wFull'] },
         { 'h-full': $props['hFull'] },
         { 'w-full': block },
@@ -85,6 +86,11 @@ const props = defineProps({
     validator(value) {
       return ["button", "submit", "reset", "signInUp"].includes(value);
     },
+  },
+  size: {
+    type: String,
+    required: false,
+    default: "base",
   },
   loading: {
     type: Boolean,

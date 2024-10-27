@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt'
   ],
-  css: ["~/assets/scss/main.scss"],
+  css: ["~/assets/scss/main.scss", "~/assets/scss/header/main.scss"],
   colorMode: {
     preference: "light",
   },
