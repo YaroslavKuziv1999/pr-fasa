@@ -1,12 +1,12 @@
 <template>
-  <div class="flex gap-3 mt-10">
-    <div class="w-[100vw] h-full">
-      <img
-        class="rounded-3xl"
-        src="../../../assets/img/intro.jpg"
-        alt="pr-fasa"
-      />
-    </div>
+  <div class="flex gap-3 mt-10 relative h-[500px] z-10">
+    <img
+      class="rounded-3xl hidden xl:flex avatar w-[100vw]"
+      style="object-fit: cover; overflow: hidden"
+      src="../../../assets/img/intro.jpg"
+      alt="pr-fasa"
+    />
+
     <div
       class="flex text-justify flex-col justify-center text-2xl px-10 text-body-color"
     >
@@ -43,7 +43,8 @@
 </template>
 
 <style scoped>
-/* .clipped {
-  clip-path: inset(0px 50px 10px 50px round 5%);
-} */
+.avatar {
+  width: 100%;
+  height: auto;
+}
 </style>

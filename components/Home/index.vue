@@ -3,7 +3,7 @@
     <Transition>
       <button
         v-if="y <= 350"
-        class="absolute bottom-10 right-10 animate-bounce"
+        class="absolute right-10 bottom-10 animate-bounce hidden xl:block"
         @click="scrollToIntro()"
       >
         <UIcon class="text-5xl" name="i-heroicons-arrow-down-circle-16-solid" />
