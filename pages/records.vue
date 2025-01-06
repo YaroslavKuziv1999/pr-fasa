@@ -22,7 +22,7 @@
             : 'You have no records'
         "
         :centered="false"
-        :margins="false"
+        margins="0px"
       />
 
       <UIDots class="px-10 basis-1/2" arrows />

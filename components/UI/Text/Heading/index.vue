@@ -1,11 +1,9 @@
 <template>
   <div
-    class="text-6xl text-body-color"
-    :class="[
-      margins && 'mt-5 mb-10',
-      centered ? 'text-center' : 'flex justify-between',
-    ]"
+    class="text-3xl xl:text-5xl text-body-color"
+    :class="[margins, centered ? 'text-center' : 'flex justify-between']"
   >
+    <slot></slot>
     {{ text }}
     <span v-if="counter" class="relative flex items-center justify-center ml-3">
       <UIcon name="i-heroicons-book-open" />
@@ -18,15 +16,17 @@
 </template>
 
 <script setup>
+const slots = useSlots();
+
 const props = defineProps({
   text: {
     type: String,
-    required: true,
+    required: false,
   },
   margins: {
-    type: Boolean,
+    type: String,
     required: false,
-    default: true,
+    default: "mt-5 mb-10",
   },
   counter: {
     type: Object,

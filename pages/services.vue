@@ -8,7 +8,7 @@
           total: allServices.length / count,
         }"
         :centered="false"
-        :margins="false"
+        margins="0px"
       />
 
       <UIDots class="w-full pl-5 pr-10" />

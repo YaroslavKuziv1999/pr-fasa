@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-3 mt-10 relative h-[500px] z-10">
+  <div class="flex gap-3 mt-3 xl:mt-10 relative">
     <img
       class="rounded-3xl hidden xl:flex avatar w-[100vw]"
       style="object-fit: cover; overflow: hidden"
@@ -8,12 +8,15 @@
     />
 
     <div
-      class="flex text-justify flex-col justify-center text-2xl px-10 text-body-color"
+      class="flex text-justify flex-col justify-center xl:text-2xl xl:px-10 text-body-color"
     >
-      <p class="text-center text-3xl font-bold mb-2">
-        Moja historia<br />
-        Witam serdecznie...
-      </p>
+      <UITextHeading margins="mb-3">
+        <p class="text-center font-bold">
+          Moja historia<br />
+          Witam serdecznie...
+        </p>
+      </UITextHeading>
+
       <div class="opacity-60">
         <p>
           Mam na imię

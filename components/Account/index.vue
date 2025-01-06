@@ -1,7 +1,7 @@
 <template>
   <div>
     <UITextHeading
-      :margins="edit"
+      :margins="edit ? 'mt-5 mb-10' : '0px'"
       :text="edit ? 'Update Account' : 'Account'"
     />
     <div class="flex gap-5">
