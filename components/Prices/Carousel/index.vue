@@ -1,7 +1,17 @@
 <template>
-  <Carousel ref="car" :itemsToShow="3" :wrapAround="true" :transition="500">
+  <Carousel
+    ref="servicesCarousel"
+    :autoplay="3000"
+    :pauseAutoplayOnHover="true"
+    :itemsToShow="1"
+    :wrapAround="true"
+    :transition="900"
+    :breakpoints="{ 1280: { itemsToShow: 3 }, 770: { itemsToShow: 2 } }"
+  >
     <Slide v-for="(slide, i) in tablePrices" :key="slide">
-      <div class="carousel__item flex flex-col gap-3 p-24">
+      <div
+        class="carousel__item min-h-72 xl:min-h-[400px] flex flex-col gap-3 p-16 2xl:p-20 xl:p-24"
+      >
         <div class="text-xl xl:text-4xl text-[green]">{{ slide.name }}</div>
         <div
           class="xl:text-5xl font-bold pb-3 w-full flex justify-center items-center"
@@ -22,6 +32,27 @@
         <PricesCarouselDecoration />
       </div>
     </Slide>
+
+    <template #addons>
+      <div class="lg:hidden block">
+        <Navigation>
+          <template #prev>
+            <UIcon
+              name="i-material-symbols-light-keyboard-double-arrow-left"
+              class="text-[45px] text-[#88ab8e] cursor-pointer opacity-50"
+              dynamic
+            />
+          </template>
+          <template #next>
+            <UIcon
+              name="i-material-symbols-light-keyboard-double-arrow-right"
+              class="text-[45px] text-[#88ab8e] cursor-pointer opacity-50"
+              dynamic
+            />
+          </template>
+        </Navigation>
+      </div>
+    </template>
   </Carousel>
 </template>
 
@@ -36,23 +67,49 @@ export default defineComponent({
 });
 </script>
 
+<script setup>
+import { onKeyStroke } from "@vueuse/core";
+import { ref } from "vue";
+
+const servicesCarousel = ref(null);
+
+onKeyStroke(["a", "A", "ArrowLeft"], (e) => {
+  e.preventDefault();
+  servicesCarousel.value.prev();
+});
+
+onKeyStroke(["d", "D", "ArrowRight"], (e) => {
+  e.preventDefault();
+  servicesCarousel.value.next();
+});
+</script>
+
+<style>
+.carousel__prev {
+  width: 50px;
+  height: 100%;
+  left: -55px;
+}
+
+.carousel__next {
+  width: 50px;
+  height: 100%;
+  right: -55px;
+}
+</style>
+
 <style scoped>
 #order {
   visibility: hidden;
 }
 
 .carousel__item {
-  min-height: 400px;
   width: 100%;
   font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-/* .carousel__slide {
-  padding: 5px;
-} */
 
 .carousel__viewport {
   perspective: 2000px;
