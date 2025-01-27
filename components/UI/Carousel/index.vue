@@ -73,6 +73,12 @@ const props = defineProps({
   left: -55px;
 }
 
+.carousel__slide--prev .decor,
+.carousel__slide--next .decor,
+.carousel__slide:not(.carousel__slide--visible) .decor {
+  visibility: hidden;
+}
+
 .carousel__next {
   z-index: 100;
   width: 50px;
@@ -116,18 +122,10 @@ const props = defineProps({
   pointer-events: none;
 }
 
-.carousel__slide--prev .dis {
-  display: none;
-}
-
 .carousel__slide--next {
   opacity: 0.5;
   transform: scale(0.85) translate(0, 10%);
   pointer-events: none;
-}
-
-.carousel__slide--next .dis {
-  display: none;
 }
 
 .carousel__slide--active {

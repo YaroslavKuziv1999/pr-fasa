@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="decor">
     <span class="absolute right-0 top-7 z-[-1] dis">
       <svg
         width="77"
