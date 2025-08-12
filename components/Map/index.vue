@@ -13,7 +13,7 @@
             >
               <img
                 @click="() => search(region.filename)"
-                class="rounded-3xl sm:w-[20rem] sm:h-[20rem] md:w-[12rem] md:h-[12rem] w-[7rem] h-[7rem] object-cover mx-3 lg:hover:scale-125 lg:transform transition duration-500 scale-100 cursor-pointer"
+                class="rounded-3xl sm:w-[20rem] sm:h-[20rem] md:w-[12rem] md:h-[12rem] w-[6rem] h-[6rem] object-cover mx-3 lg:hover:scale-105 lg:transform transition duration-500 scale-100 cursor-pointer"
                 :src="region.secure_url"
                 :alt="region.filename"
               />
@@ -49,10 +49,35 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, computed } from "vue";
+
 const dots = ref();
 
 const showedAll = ref(false);
-const showedMax = 5;
+const showedMax = ref(0);
+
+function updateShowedMax() {
+  const width = window.innerWidth;
+
+  if (width >= 1280) {
+    showedMax.value = 6;
+  } else if (width >= 1024) {
+    showedMax.value = 3;
+  } else if (width >= 768) {
+    showedMax.value = 5;
+  } else {
+    showedMax.value = 2;
+  }
+}
+
+onMounted(() => {
+  updateShowedMax();
+  window.addEventListener("resize", updateShowedMax);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateShowedMax);
+});
 
 const data = await $fetch(`/api/mapLocations/all`, {
   method: "GET",
