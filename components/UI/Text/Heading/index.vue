@@ -1,12 +1,15 @@
 <template>
   <div
     class="text-3xl xl:text-5xl text-body-color"
-    :class="[margins, centered ? 'text-center' : 'flex justify-between']"
+    :class="
+      ([margins, centered ? 'text-center' : 'flex justify-between'],
+      [fullCenter && 'flex items-center justify-center'])
+    "
   >
     <slot></slot>
     {{ text }}
     <span v-if="counter" class="relative flex items-center justify-center ml-3">
-      <UIcon name="i-heroicons-book-open" />
+      <UIcon name="i-heroicons-book-open" class="text-[4rem]" />
       <div class="absolute top-[25%] left-[27%] text-lg flex gap-3">
         <span>{{ counter.number }}</span>
         <span>{{ counter.total }}</span>
@@ -36,6 +39,11 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: true,
+  },
+  fullCenter: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 });
 </script>

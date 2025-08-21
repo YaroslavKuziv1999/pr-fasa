@@ -8,6 +8,7 @@
           total: allServices.length / count,
         }"
         :centered="false"
+        fullCenter
         margins="0px"
       />
 
