@@ -13,7 +13,7 @@
             >
               <img
                 @click="() => search(region.filename)"
-                class="rounded-3xl sm:w-[20rem] sm:h-[20rem] md:w-[12rem] md:h-[12rem] w-[6rem] h-[6rem] object-cover mx-3 lg:hover:scale-105 lg:transform transition duration-500 scale-100 cursor-pointer"
+                class="rounded-3xl sm:w-[14rem] sm:h-[14rem] md:w-[12rem] md:h-[12rem] w-[8rem] h-[8rem] object-cover mx-3 lg:hover:scale-105 lg:transform transition duration-500 scale-100 cursor-pointer"
                 :src="region.secure_url"
                 :alt="region.filename"
               />
