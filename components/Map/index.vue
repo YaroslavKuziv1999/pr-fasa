@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UITextHeading text="Poznań i okolice" />
+    <UITextHeading text="Poznań i okolice" fullCenter />
     <div>
       <div>
         <div
