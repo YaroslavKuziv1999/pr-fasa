@@ -1,9 +1,9 @@
 <template>
   <div
-    class="text-3xl xl:text-5xl text-body-color"
+    class="text-3xl xl:text-5xl text-body-color mb-4"
     :class="
       ([margins, centered ? 'text-center' : 'flex justify-between'],
-      [fullCenter && 'flex items-center justify-center'])
+      [fullCenter && 'flex items-center justify-center text-center'])
     "
   >
     <slot></slot>
