@@ -31,6 +31,9 @@ const scrollToIntro = () => {
 };
 
 onMounted(() => {
+  // Skip scroll animations on small screens
+  if (window.innerWidth < 768) return;
+
   let delay = 0.2;
 
   const observer = new IntersectionObserver(
@@ -62,6 +65,14 @@ onMounted(() => {
   -moz-transform: translateY(20px);
   -ms-transform: translateY(20px);
   -o-transform: translateY(20px);
+}
+
+@media (max-width: 767px) {
+  .scrollAnim {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 .v-enter-active,
