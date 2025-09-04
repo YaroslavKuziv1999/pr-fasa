@@ -86,6 +86,8 @@
                   <UButton
                     @mousedown="() => (show.login = true)"
                     @mouseup="() => (show.login = false)"
+                    @touchstart.prevent="() => (show.login = true)"
+                    @touchend="() => (show.login = false)"
                     icon="i-heroicons-eye-16-solid"
                     color="gray"
                   />
@@ -139,6 +141,8 @@
                   <UButton
                     @mousedown="() => (show.register = true)"
                     @mouseup="() => (show.register = false)"
+                    @touchstart.prevent="() => (show.register = true)"
+                    @touchend="() => (show.register = false)"
                     icon="i-heroicons-eye-16-solid"
                     color="gray"
                   />
@@ -190,7 +194,7 @@ import {
 import { useWindowSize } from "@vueuse/core";
 
 const { width } = useWindowSize();
-const lgBreakpoint = 1030;
+const lgBreakpoint = 1025;
 
 const props = defineProps({
   navigateToServices: { type: Boolean, required: false, default: false },
